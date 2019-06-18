@@ -3,6 +3,25 @@
 
 var layersState = {};
 
+var layerNames = {
+  'ru': {
+    'latlon': 'LatLon',
+    'osm': 'OSM Mapnik',
+    'genshtab': 'Генштаб, 1км',
+    'rkka50k': 'РККА, 1:50000',
+    'routes': 'Маршруты',
+    'poi': 'Точки интереса',
+  },
+  'en': {
+    'latlon': 'LatLon',
+    'osm': 'OSM Mapnik',
+    'genshtab': 'General Staff, 1km',
+    'rkka50k': 'RKKA, 1:50000',
+    'routes': 'Routes',
+    'poi': 'Point of interest',
+  }
+};
+
 var WPEuroveloMapPlugin = {
 	maps : [],
 	init : function () {
@@ -65,9 +84,20 @@ var WPEuroveloMapPlugin = {
 
 			var routes_overlays = {};
 			if (opts.routes_base_url) {
+			    var kmlFilesNames = {
+			      'ru': {
+                    'routes': 'EuroVelo Routes',
+                    'vh': 'Валожынскія гасцінцы',
+                  },
+                  'en': {
+                    'routes': 'EuroVelo Routes',
+                    'vh': 'Valozhynsky Gastsіntsy',
+                  }
+                }
+
 				var kmlFiles = {
-					'eurovelo-routes.kml': 'EuroVelo Routes',
-					'vh.kml': 'Валожынскія гасцінцы'
+					'eurovelo-routes.kml': kmlFilesNames.en.routes,
+					'vh.kml': kmlFilesNames.en.vh
 				};
 
 				for (var file in kmlFiles) {
@@ -100,20 +130,15 @@ var WPEuroveloMapPlugin = {
 
 			WPEuroveloMapPlugin.loadGlobus(globusGroup);
 
-			var baseLayers = {
-				"LatLon": latlon,
-				"OSM Mapnik": osm,
-				"Генштаб, 1км": genshtab,
-				"РККА, 1:50000": rkka50k
-			};
+			var baseLayers = {};
+            baseLayers[layerNames.en.latlon] = latlon;
+            baseLayers[layerNames.en.osm] = osm;
+            baseLayers[layerNames.en.genshtab] = genshtab;
+            baseLayers[layerNames.en.rkka50k] = rkka50k;
 
-			var groupedOverlays = {
-				"Маршруты": routes_overlays,
-				"Точки интереса": {
-					"Globus.tut.by": globusGroup,
-				}
-			};
-
+			var groupedOverlays = {};
+            groupedOverlays[layerNames.en.routes] = routes_overlays;
+            groupedOverlays[layerNames.en.poi] = {"Globus.tut.by": globusGroup};
 
 
 			var layersCtl = L.control.groupedLayers(baseLayers, groupedOverlays, null, opts.plugin_url).addTo(map);
@@ -232,29 +257,56 @@ var WPEuroveloMapPlugin = {
 				'drinkingwater': 'water'
 			};
 		var poiGroupNames = {
-			'hotel': 'Отель',
-			'hostel': 'Хостел',
-			'farmstead': 'Агроусадьба',
-			'camping': 'Кемпинг',
-			'camping-paid':'Кемпинг (платный)',
-			'water': 'Питьевая вода',
-			'table': 'Стол',
-			'table-shelter': 'Стол с навесом',
-			'bike-repair': 'Велоремонт',
-			'campsite': 'Место для палатки',
-			'relax': 'Место отдыха',
-			'bike-rental': 'Аренда велосипедов',
-			'fireplace': 'Место для огня',
-			'beach': 'Пляж',
-			'cafe': 'Кафе, ресторан',
-			'toilet': 'Туалет',
-			'shop': 'Магазин',
-			'info': 'Инфопункт',
-			'railway-station': 'Станция ж/д',
-			'viewpoint': 'Обзорная точка',
-			'poi': 'Достопримечательность',
-			'bus-stop': 'Автобусная остановка',
-			'nature': 'Природный объект'
+			'ru': {
+              'hotel': 'Отель',
+              'hostel': 'Хостел',
+              'farmstead': 'Агроусадьба',
+              'camping': 'Кемпинг',
+              'camping-paid':'Кемпинг (платный)',
+              'water': 'Питьевая вода',
+              'table': 'Стол',
+              'table-shelter': 'Стол с навесом',
+              'bike-repair': 'Велоремонт',
+              'campsite': 'Место для палатки',
+              'relax': 'Место отдыха',
+              'bike-rental': 'Аренда велосипедов',
+              'fireplace': 'Место для огня',
+              'beach': 'Пляж',
+              'cafe': 'Кафе, ресторан',
+              'toilet': 'Туалет',
+              'shop': 'Магазин',
+              'info': 'Инфопункт',
+              'railway-station': 'Станция ж/д',
+              'viewpoint': 'Обзорная точка',
+              'poi': 'Достопримечательность',
+              'bus-stop': 'Автобусная остановка',
+              'nature': 'Природный объект'
+            },
+            'en': {
+              'hotel': 'Hotel',
+              'hostel': 'Hostel',
+              'farmstead': 'Farmstead',
+              'camping': 'Camping',
+              'camping-paid':'Camping (paid)',
+              'water': 'Water',
+              'table': 'Table',
+              'table-shelter': 'Canopy table',
+              'bike-repair': 'Bike repair',
+              'campsite': 'Campsite',
+              'relax': 'Resting-place',
+              'bike-rental': 'Bike rental',
+              'fireplace': 'Fireplace',
+              'beach': 'Beach',
+              'cafe': 'Cafe',
+              'toilet': 'Toilet',
+              'shop': 'Shop',
+              'info': 'Info',
+              'railway-station': 'Railway station',
+              'viewpoint': 'Viewpoint',
+              'poi': 'Point of interest',
+              'bus-stop': 'Bus stop',
+              'nature': 'Nature'
+            }
 		};
 
 		var minZooms = {
@@ -388,11 +440,11 @@ var WPEuroveloMapPlugin = {
 				if (map.getZoom() >= minZooms[group])
 					pointGroups[group].addTo(map);
 
-				ctl.addOverlay(pointGroups[group],  poiGroupNames[group], "Точки интереса");
+				ctl.addOverlay(pointGroups[group],  poiGroupNames.en[group], layerNames.en.poi);
 			}
 			for (overlay in overlays) {
 				layersState[overlay] = {
-					name: poiGroupNames[overlay],
+					name: poiGroupNames.en[overlay],
 					state: !!map.hasLayer(pointGroups[overlay]),
 					minZoom: overlays[overlay].minZoom,
 					layer: pointGroups[overlay],
