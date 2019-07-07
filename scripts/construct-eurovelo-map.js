@@ -6,7 +6,7 @@ var layersState = {};
 var layerNames = {
   'ru': {
     'latlon': 'LatLon',
-    'osm': 'OSM DE',
+    'osm': 'OSM Mapnik',
     'genshtab': 'Генштаб, 1км',
     'rkka50k': 'РККА, 1:50000',
     'routes': 'Маршруты',
@@ -14,7 +14,7 @@ var layerNames = {
   },
   'en': {
     'latlon': 'LatLon',
-    'osm': 'OSM DE',
+    'osm': 'OSM Mapnik',
     'genshtab': 'General Staff, 1km',
     'rkka50k': 'RKKA, 1:50000',
     'routes': 'Routes',
@@ -67,7 +67,7 @@ var WPEuroveloMapPlugin = {
 					'Tiles: <a href="https://github.com/jekhor/belroad">Belroad</a> style'
 					}).addTo(map);
 
-			var osm = L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+			var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 					maxZoom: 19,
 					attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
 					});
