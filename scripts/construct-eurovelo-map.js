@@ -84,16 +84,16 @@ var WPEuroveloMapPlugin = {
 
 			var routes_overlays = {};
 			if (opts.routes_base_url) {
-			    var kmlFilesNames = {
-			      'ru': {
-                    'routes': 'EuroVelo Routes',
-                    'vh': 'Валожынскія гасцінцы',
-                  },
-                  'en': {
-                    'routes': 'EuroVelo Routes',
-                    'vh': 'Valozhynsky Gastsіntsy',
-                  }
-                }
+				var kmlFilesNames = {
+					'ru': {
+									'routes': 'EuroVelo Routes',
+									'vh': 'Валожынскія гасцінцы',
+								},
+								'en': {
+									'routes': 'EuroVelo Routes',
+									'vh': 'Valožynskija hascincy',
+								}
+							};
 
 				var kmlFiles = {
 					'eurovelo-routes.kml': kmlFilesNames.en.routes,
